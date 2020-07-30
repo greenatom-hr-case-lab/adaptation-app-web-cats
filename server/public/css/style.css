@@ -1,0 +1,22 @@
+
+body {position: relative;
+
+}
+main {background-color: #c2f0bb;
+      min-height: 100vh;
+      }
+.buttons {
+  padding: 5px;
+}
+.new-plan { margin-left: auto;
+            margin-right: auto;
+            width: 50%}
+.navbar-brand{font-size: 2em;
+}
+#navbar {background-color: #35b655}
+p {font-size: 1.5em;
+  text-align: center;}
+h1, h3 {text-align: center;}
+body > .container {
+  padding: 30px 15px 0;
+}

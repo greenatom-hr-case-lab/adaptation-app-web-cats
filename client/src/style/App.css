@@ -2,7 +2,7 @@
 
 body {
   font-family: "Open Sans", serif;  
-  background-image: url('./style/background.png');
+  background-image: url('./background.png');
   background-attachment: scroll;  
   background-size: cover;
 }
@@ -10,12 +10,14 @@ body {
 .wrapper {
   display: flex;
   justify-content: center;
-  background-image: './style/background.png';
-  background-attachment: scroll;  
-  background-size: cover;  
+  margin-top: 120px;
 }
 .container{
-  margin-top: 100px
+  justify-content: center;
+}
+
+.login-form {
+  align-content: center;
 }
 
 textarea {

@@ -15,10 +15,12 @@ const schemaPlans = new Schema({
     default: 'Unkid'
   },
   startDate: {
-    type: String
+    type: String,
+    required: true
   },
   endDate: {
-    type:String
+    type:String,
+    required: true
   },
   updDate: {
     type: String,
@@ -26,11 +28,12 @@ const schemaPlans = new Schema({
   },
   worker:{
     type: String,
-    default: "Vasya"
+    required: true
+    
   },
   leader:{
     type: String,
-    default: "Pasha"
+    required: true
   },
   planState: {
     type: String,
@@ -38,7 +41,7 @@ const schemaPlans = new Schema({
   },
   planMark:{
     type: String,
-    default: 'None'
+    default: '-'
   },
   finalState:{
     type: Boolean,

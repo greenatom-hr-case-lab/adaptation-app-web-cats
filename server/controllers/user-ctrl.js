@@ -9,13 +9,13 @@ const validateLoginInput = require("../validation/login");
 // @route POST api/users/register
 // @desc Register user
 // @access Public
-registerUser = (req, res) => {
+registerUser = async (req, res) => {
     
     const { errors, isValid } = validateRegisterInput(req.body);
     if (!isValid) {
         return res.status(400).json(errors);
     }
-    User.findOne({ email: req.body.email }).then(user => {
+    await User.findOne({ email: req.body.email }).then(user => {
     if (user) {
         return res.status(400).json({ email: "Email already exists" });
     } else {
@@ -32,16 +32,16 @@ registerUser = (req, res) => {
             .save()
             .then(user => res.json(user))
             .catch(err => console.log(err));
-        });
-        });
+        })
+        })
     }
-    });
-};
+    })
+}
   // @route POST api/users/login
   // @desc Login user and return JWT token
   // @access Public
   
-loginUser =  (req, res) => {
+loginUser = async (req, res) => {
 
     const { errors, isValid } = validateLoginInput(req.body);
     if (!isValid) {
@@ -49,7 +49,7 @@ loginUser =  (req, res) => {
     }
     const email = req.body.email;
     const password = req.body.password;// Find user by email
-    User.findOne({ email }).then(user => {
+    await User.findOne({ email }).then(user => {
         // Check if user exists
         if (!user) {
         return res.status(404).json({ emailnotfound: "Email not found" });
@@ -60,7 +60,8 @@ loginUser =  (req, res) => {
             // Create JWT Payload
             const payload = {
                 id: user.id,
-                fullName: user.fullName
+                fullName: user.fullName,
+                role: user.role
             };
             // Sign token
             jwt.sign( payload, keys.secretOrKey,
@@ -79,11 +80,26 @@ loginUser =  (req, res) => {
             .status(400)
             .json({ passwordincorrect: "Password incorrect" });
         }
-        });
-    });
-};
+        })
+    })
+}
+
+getUsers = async (req, res) => {
+    await User.find({},{email: false, password: false}, (err, users) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+        if (!users.length) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Users not found` })
+        }
+        return res.status(200).json({users})
+    }).catch(err => console.log(err))
+}
 
 module.exports = {
     registerUser,
     loginUser,
+    getUsers,
 }

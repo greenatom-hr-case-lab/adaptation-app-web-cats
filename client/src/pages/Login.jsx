@@ -49,24 +49,15 @@ class Login extends Component {
   };
 
   render() {
-    const { errors } = this.state;return (
-      <div className="container">
-        <div  className="row">
-          <div className="col s8">
-            <Link to="/" className="btn btn-secondary">
-              Back to home
-            </Link>
-            <div className="col s12" >
-              <h4>
-                <b>Login</b> below
-              </h4>
-              <p >
-                Don't have an account? 
-                <Link to="/register">Register</Link>
-              </p>
-            </div>
-            <form noValidate onSubmit={this.onSubmit}>
-              <div className="input col s12">
+	const { errors } = this.state;
+	return (
+        <div className="login-form">
+			<div className="row">
+				<div className="col-12">
+						<h2>Login below </h2></div></div>
+			<form noValidate  onSubmit={this.onSubmit}>
+              
+              <label htmlFor="email">Email</label><br/>
                 <input
                   onChange={this.onChange}
                   value={this.state.email}
@@ -77,13 +68,13 @@ class Login extends Component {
                     invalid: errors.email || errors.emailnotfound
                   })}
                 />
-                <label htmlFor="email">Email</label>
+                
                 <span className="red-text">
                   {errors.email}
                   {errors.emailnotfound}
-                </span>
-              </div>
-              <div className="input col s12">
+                </span><br/>
+                
+                <label htmlFor="password">Password</label><br/>
                 <input
                   onChange={this.onChange}
                   value={this.state.password}
@@ -94,30 +85,20 @@ class Login extends Component {
                     invalid: errors.password || errors.passwordincorrect
                   })}
                 />
-                <label htmlFor="password">Password</label>
+                
                 <span className="red-text">
                   {errors.password}
                   {errors.passwordincorrect}
-                </span>
-              </div>
-              <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-                <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "1rem"
-                  }}
-                  type="submit"
-                  className="btn btn-success"
-                >
+                </span><br/>
+              
+              
+                <button type="submit" >
                   Login
                 </button>
-              </div>
+              
             </form>
-          </div>
         </div>
-      </div>
+        
     );
   }
 }

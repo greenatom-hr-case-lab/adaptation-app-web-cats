@@ -54,38 +54,30 @@ class Register extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="container">
-        <div className="row">
-            <Link to="/" className="btn btn-secondary">
-             Back to home
-            </Link>
-            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
-              <h4>
-                <b>Register</b> below
-              </h4>
-              <p className="grey-text text-darken-1">
-                Already have an account? <Link to="/login">Log in</Link>
-              </p>
-            </div>
+      <div className="register-form">
+			<h4>
+				<b>Register</b> below
+			</h4>
+			<p className="grey-text text-darken-1">
+				Already have an account? <Link to="/login">Log in</Link>
+			</p>          
 
             <form noValidate onSubmit={this.onSubmit}>
 
-              <div className="input col s12">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.fullName}
-                  error={errors.fullName}
-                  id="fullName"
-                  type="text"
-                  className={classnames("", {
-                    invalid: errors.fullName
-                  })}
-                />
-                <label htmlFor="fullName">Name</label>
-                <span className="red-text">{errors.fullName}</span>
-              </div>
-
-              <div className="input col s12">
+				<label htmlFor="fullName">Name</label><br/>
+				<input
+					onChange={this.onChange}
+					value={this.state.fullName}
+					error={errors.fullName}
+					id= "fullName"
+					type="text"
+					className={classnames("", {
+						invalid: errors.fullName
+					})}
+				/>
+				<span className="red-text">{errors.fullName}</span> <br/>
+				
+				<label htmlFor="email">Email</label><br/>
                 <input
                   onChange={this.onChange}
                   value={this.state.email}
@@ -96,11 +88,9 @@ class Register extends Component {
                     invalid: errors.email
                   })}
                 />
-                <label htmlFor="email">Email</label>
-                <span className="red-text">{errors.email}</span>
-              </div>
-
-              <div className="input col s12">
+                <span className="red-text">{errors.email}</span><br/>              
+				
+				<label htmlFor="password">Password</label><br/>
                 <input
                   onChange={this.onChange}
                   value={this.state.password}
@@ -111,11 +101,10 @@ class Register extends Component {
                     invalid: errors.password
                   })}
                 />
-                <label htmlFor="password">Password</label>
-                <span className="red-text">{errors.password}</span>
-              </div>
+                
+                <span className="red-text">{errors.password}</span><br/>
 
-              <div className="input col s12">
+			  	<label htmlFor="password2">Confirm Password</label><br/>
                 <input
                   onChange={this.onChange}
                   value={this.state.password2}
@@ -125,29 +114,16 @@ class Register extends Component {
                   className={classnames("", {
                     invalid: errors.password2
                   })}
-                />
-                <label htmlFor="password2">Confirm Password</label>
-                <span className="red-text">{errors.password2}</span>
-              </div>
-
-              <div className="col s12" >
-                <button
-                  style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "1rem"
-                  }}
-                  type="submit"
-                  className="btn btn-success"
-                >
+                />                
+                <span className="red-text">{errors.password2}</span><br/>              
+				
+                <button type="submit">
                   Sign up
                 </button>
-               </div> 
+               
 
               </form>
-        </div>
-    </div>
+        </div>    
     );
   }
 }

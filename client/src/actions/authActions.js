@@ -3,13 +3,13 @@ import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING} from "./types";
 
-const api = axios.create({
+const auth = axios.create({
     baseURL: 'http://localhost:5000/auth',
 })
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-  api
+  auth
     .post("/register", userData)
     .then(res => history.push("/login")) // re-direct to login on successful register
     .catch(err =>
@@ -22,7 +22,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 // Login - get user token
 export const loginUser = userData => dispatch => {
-  api
+  auth
     .post("/login", userData)
     .then(res => {
       // Save to localStorage
@@ -45,9 +45,10 @@ export const loginUser = userData => dispatch => {
     );
 };
 
+
+
 // Set logged in user
 export const setCurrentUser = decoded => {
-  console.log(decoded)
   return {
     type: SET_CURRENT_USER,
     payload: decoded

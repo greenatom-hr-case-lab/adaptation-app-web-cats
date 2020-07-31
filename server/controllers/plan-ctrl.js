@@ -108,6 +108,21 @@ getPlanById = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
+getPlanByWorker = async (req, res) => {
+    await Plan.find({ worker: req.params.id }, (err, plans) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+
+        if (!plans) {
+            return res
+                .status(404)
+                .json({ success: false, error: `Plans not found` })
+        }
+        return res.status(200).json({ success: true, data: plans })
+    }).catch(err => console.log(err))
+}
+
 getPlans = async (req, res) => {
     await Plan.find({}, (err, plans) => {
         if (err) {
@@ -128,4 +143,5 @@ module.exports = {
     deletePlan,
     getPlans,
     getPlanById,
+    getPlanByWorker,
 }

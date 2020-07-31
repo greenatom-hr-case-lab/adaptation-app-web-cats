@@ -11,7 +11,7 @@ class UpdatePlan extends Component {
     }
 
     render() {
-        return <button className="btn btn-success mr-2" onClick={this.updatePlan}>Редактировать</button>
+        return <button className=" mr-2" onClick={this.updatePlan}>Редактировать</button>
     }
 }
 
@@ -29,7 +29,7 @@ class DeletePlan extends Component {
     }
 
     render() {
-        return <button className="btn btn-secondary mr-2"onClick={this.deletePlan}>Удалить</button>
+        return <button className=" mr-2"onClick={this.deletePlan}>Удалить</button>
     }
 }
 
@@ -37,7 +37,8 @@ class PlansList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            plans: [],
+			plans: [],
+			users: [],
             isLoading: false,
         }
     }
@@ -50,19 +51,29 @@ class PlansList extends Component {
                 plans: plans.data.plans,
                 isLoading: false,
             })
-        })
+		})
+        
+        await api.getUsers().then(users => {
+            this.setState({
+                users: users.data.users,
+                isLoading: false,
+            })
+            const updPlans = this.state.plans.map((plan,i) => {
+                this.state.users.forEach(user => {
+                    if (user._id === plan.worker){
+                        plan.worker = user.fullName
+                    }
+                })
+            })
+            this.setState({updPlans})
+            
+        })		
     }
-
-    onLogoutClick = e => {
-        e.preventDefault();
-        this.props.logoutUser();
-      };
+   
 
     render() {
         const { plans, isLoading } = this.state
-        console.log('TCL: PlansList -> render -> plans', plans)
-        const { user } = this.props.auth;
-
+        const {user} = this.props.auth
         let showCards = true
         if (!plans.length) {
             showCards = false
@@ -70,35 +81,30 @@ class PlansList extends Component {
 
         return (showCards &&(
           <div className="container">
-            <button
-              style={{
-                width: "150px",
-                borderRadius: "3px",
-                letterSpacing: "1.5px",
-                marginTop: "1rem"
-              }}
-              onClick={this.onLogoutClick}
-              className="btn btn-secondary"
-            >
-              Logout
-            </button>
-            <b>{user.fullName}</b>
-            
+                      
             {plans.map( plan => (
-                          <div className="card mb-3" key={plan._id}>
-                            <div className="card-header">
-                              {plan.title}
-                            </div>
-                            <div className="card-body">
-                              <h5 className="card-title">{plan.worker}</h5>
-                              <p className="card-text">{plan.description}</p>
-                              <UpdatePlan id={plan._id}/>
-                              <DeletePlan id={plan._id} title={plan.title} />
-                            </div>
-                            <div className="card-footer text-muted">
-                              {plan.updDate}
-                            </div>
-                          </div>
+							<div className="card mb-3" key={plan._id}>
+								<div className="card-header">
+								{plan.title}
+								</div>
+								<div className="card-body">
+								<h5 className="card-title">{plan.worker}</h5>
+								<p className="card-text">{plan.description}</p>
+                                {user.role === 'hr' ?
+								(
+                                <div className="buttons">
+                                    <UpdatePlan id={plan._id}/>
+                                    <DeletePlan id={plan._id} title={plan.title} />
+                                </div>
+                                )
+                                :(
+                                    <UpdatePlan id={plan._id}/>
+                                )}
+								</div>
+								<div className="card-footer text-muted">
+								{plan.updDate}
+								</div>
+							</div>
             ))}
           </div>
         ))

@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { HeaderBlock } from '../components'
+import NotFound from '../components/NotFound/index'
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "../actions/authActions";
@@ -39,12 +40,9 @@ function App() {
                         <Route exact path="/register" component={Register} />
                         <Route exact path="/login" component={Login} />
                         <PrivateRoute path="/plan/list" exact component={PlansList} />
-                        <Route path="/plan/create" exact component={PlanInsert} />
-                        <Route
-                            path="/plan/update/:id"
-                            exact
-                            component={PlanUpdate}
-                        />
+                        <PrivateRoute path="/plan/create" exact component={PlanInsert} />
+                        <PrivateRoute path="/plan/update/:id" exact component={PlanUpdate}/>
+                        <Route path="*" component={NotFound} />
                     </Switch>
                 </Router>
             </div>

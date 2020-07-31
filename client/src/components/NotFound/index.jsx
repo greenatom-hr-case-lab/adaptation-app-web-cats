@@ -1,0 +1,11 @@
+import React from 'react';
+import { Redirect } from 'react-router';
+
+const NotFound = () => {
+  return (
+    <Redirect to="/plan/list" />
+    
+  );
+};
+
+export default NotFound;

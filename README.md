@@ -7,3 +7,15 @@ Also have authentication, authorization, connection with db
 Don't have tasks(
 
 Screencast : https://youtu.be/KLxM22BW8Io
+
+To run our project go 'server' folder and:
+npm run install-all
+npm run start
+
+hr mail and password:
+unkid@unkid.com
+unkid1
+
+employee:
+sasha@gmail.com
+123456

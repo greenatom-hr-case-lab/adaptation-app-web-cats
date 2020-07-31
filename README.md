@@ -6,4 +6,4 @@ Soo, we have some separations of roles, but we don't use role 'boss' at all. Hav
 Also have authentication, authorization, connection with db
 Don't have tasks(
 
-Screencast : https://youtu.be/ZaJWzfKpoLw
+Screencast : https://youtu.be/KLxM22BW8Io

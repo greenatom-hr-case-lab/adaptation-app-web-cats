@@ -19,11 +19,11 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index",
+    "install-all": "npm install && cd ../client && npm install",
+    "server": "node index",
     "dev": "nodemon index",
-    "client": "npm start ../client", 
-    "all": "concurrently \"npm run dev\" \"npm run client\"" 
+    "client": "npm start --prefix ../client",
+    "start": "concurrently \"npm run dev\" \"npm run client\""
   },
   "author": "alex unkid",
   "license": "ISC"

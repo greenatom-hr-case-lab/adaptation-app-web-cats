@@ -8,7 +8,7 @@ import setAuthToken from "../utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "../actions/authActions";
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { PlansList, PlanInsert, PlanUpdate, Login, Register } from '../pages'
+import { PlansList, PlanInsert, PlanUpdate, Login, Register,PlanPage } from '../pages'
 import PrivateRoute from "../components/privateRoute/privateRoute";
 import { Provider } from "react-redux";
 import store from "../store";
@@ -39,9 +39,10 @@ function App() {
                     <Switch>
                         <Route exact path="/register" component={Register} />
                         <Route exact path="/login" component={Login} />
-                        <PrivateRoute path="/plan/list" exact component={PlansList} />
+                        <PrivateRoute path="/plan/list" exact component={PlansList} />                        
                         <PrivateRoute path="/plan/create" exact component={PlanInsert} />
                         <PrivateRoute path="/plan/update/:id" exact component={PlanUpdate}/>
+                        <PrivateRoute path="/plan/view/:id" exact component={PlanPage} />
                         <Route path="*" component={NotFound} />
                     </Switch>
                 </Router>

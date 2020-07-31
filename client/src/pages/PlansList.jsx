@@ -15,12 +15,23 @@ class UpdatePlan extends Component {
     }
 }
 
+class ShowPlan extends Component {
+    updatePlan = event => {
+        event.preventDefault()
+        window.location.href = `/plan/view/${this.props.id}`
+    }
+
+    render() {
+        return <button className=" mr-2" onClick={this.updatePlan}>Подробнее</button>
+    }
+}
+
 class DeletePlan extends Component {
     deletePlan = event => {
         event.preventDefault()
         if (
             window.confirm(
-                `Do tou want to delete the plan ${this.props.title} permanently?`
+                `Удалить план ${this.props.title}?`
             )
         ) {
             api.deletePlanById(this.props.id)
@@ -93,12 +104,15 @@ class PlansList extends Component {
                                 {user.role === 'hr' ?
 								(
                                 <div className="buttons">
+                                    <ShowPlan id={plan._id}/>
                                     <UpdatePlan id={plan._id}/>
                                     <DeletePlan id={plan._id} title={plan.title} />
                                 </div>
                                 )
                                 :(
-                                    <UpdatePlan id={plan._id}/>
+                                    <div className="buttons">
+                                    <ShowPlan id={plan._id}/>
+                                    </div>
                                 )}
 								</div>
 								<div className="card-footer text-muted">

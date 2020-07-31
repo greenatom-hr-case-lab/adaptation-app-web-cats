@@ -55,30 +55,27 @@ class PlansList extends Component {
     }
 
     componentDidMount = async () => {
-        this.setState({ isLoading: true })
-
-        await api.getAllPlans().then(plans => {
-            this.setState({
-                plans: plans.data.plans,
-                isLoading: false,
-            })
-		})
+        this.setState({ isLoading: true })        
         
         await api.getUsers().then(users => {
             this.setState({
                 users: users.data.users,
                 isLoading: false,
-            })
-            const updPlans = this.state.plans.map((plan,i) => {
+            })           
+        })	
+
+        await api.getAllPlans().then(plans => {
+            plans.data.plans.map((plan) => {
                 this.state.users.forEach(user => {
                     if (user._id === plan.worker){
                         plan.worker = user.fullName
                     }
-                })
+                })   
             })
-            this.setState({updPlans})
-            
-        })		
+            this.setState({plans:plans.data.plans})
+            this.setState({isLoading:false})
+		})
+        
     }
    
 

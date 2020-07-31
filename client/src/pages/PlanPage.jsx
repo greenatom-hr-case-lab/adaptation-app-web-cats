@@ -37,21 +37,6 @@ class PlanPage extends Component {
         const { id } = this.state
         const plan = await api.getPlanById(id)        
 
-        
-        this.setState({
-            title: plan.data.data.title,
-            description: plan.data.data.description,
-            worker: plan.data.data.worker,
-            startDate: plan.data.data.startDate,
-            endDate: plan.data.data.endDate,
-            leader: plan.data.data.leader,
-            planState: plan.data.data.planState,
-            planMark: plan.data.data.planMark,
-            finalState: plan.data.data.finalState,
-            updDate: plan.data.data.updDate,
-            crtr: plan.data.data.crtr
-        })
-
         await api.getUsers().then(users => {
             this.setState({
                 users: users.data.users,
@@ -62,14 +47,26 @@ class PlanPage extends Component {
 
         let updPlans = ''
         this.state.users.forEach(user => {
-            if (user._id === this.state.worker){
+            if (user._id === plan.data.data.worker){
                 updPlans = user.fullName
             }
             console.log(updPlans)
         })
-
         
-        this.setState({worker:updPlans})
+        this.setState({
+            title: plan.data.data.title,
+            description: plan.data.data.description,
+            startDate: plan.data.data.startDate,
+            worker: updPlans,
+            endDate: plan.data.data.endDate,
+            leader: plan.data.data.leader,
+            planState: plan.data.data.planState,
+            planMark: plan.data.data.planMark,
+            finalState: plan.data.data.finalState,
+            updDate: plan.data.data.updDate,
+            crtr: plan.data.data.crtr
+        })       
+        
     }
 
     render() {
